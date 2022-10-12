@@ -18,3 +18,7 @@ class Aritmetica:
 
 aritmetica1=Aritmetica(2,5)
 print(aritmetica1.sumar())
+print(aritmetica1.restar())
+print(aritmetica1.multiplicar())
+print(aritmetica1.dividir())
+print(aritmetica1.elevar())
