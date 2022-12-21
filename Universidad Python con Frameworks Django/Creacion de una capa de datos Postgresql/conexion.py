@@ -1,19 +1,45 @@
 import psycopg2 as db
-class Conexion:
-    conexion = None
-    def obtenerconexion(cls):
-        try:
-            conexion = db.connect(user='postgres',password='admin',host='127.0.0.1',port='5432',database='pyUni_db')
-        except Exception as e:
-            print(f"Error al conectar base de datos, Detalle: {type(e)}")
+import sys
+from manejo_de_loggin import *
 
+class Conexion:
+    _DATABASE = "pyUni_db"
+    _USERNAME = 'postgres'
+    _PASSWORD = "admin"
+    _DB_PORT = '5432'
+    _HOST = '127.0.0.1'
+    _conexion = None
+    _cursor = None
+    @classmethod
+    def obtenerconexion(cls):
+        if cls._conexion is None:
+            try:
+                cls._conexion =db.connect(
+                user=cls._USERNAME,
+                password=cls._PASSWORD,
+                host=cls._HOST,
+                port=cls._DB_PORT,
+                database=cls._DATABASE)
+                log.debug(f"Conexion exitosa: {cls._conexion}")
+                return cls._conexion
+            except Exception as e:
+                log.error(f"Ocurrio una excepcion: {e}")
+                sys.exit()
+        else:
+            return cls._conexion
+
+
+    @classmethod
     def obtenercursor(cls):
-        try:
-            with conexion:
-                cursor = conexion.cursor()
-        except Exception as e:
-            print(e)
-        finally:
-            conexion.close()
+        if cls._cursor is None:
+            try:
+                cls._cursor=cls.obtenerconexion().cursor()
+                log.debug(f"Se abrio correctamente el cursor: {cls._cursor}")
+                return cls._cursor
+            except Exception as e:
+                log.error(f"Ocurrio uan excepcion al obtener cursor: {e}")
+                sys.exit()
+        else:
+            return cls._cursor
     def cerrar(cls):
-        pass
+        sys.exit()

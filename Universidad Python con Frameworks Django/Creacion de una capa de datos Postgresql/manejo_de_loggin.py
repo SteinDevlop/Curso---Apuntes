@@ -12,6 +12,5 @@ handlers=[
     log.FileHandler("Capa_datos.log"),
     log.StreamHandler()
     ])
-mensajes()
 
 
