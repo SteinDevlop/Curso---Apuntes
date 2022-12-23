@@ -31,7 +31,7 @@ class Conexion:
 
     @classmethod
     def obtenercursor(cls):
-        if cls._cursor is None:
+        if cls._cursor is None or cls._cursor.closed:
             try:
                 cls._cursor=cls.obtenerconexion().cursor()
                 log.debug(f"Se abrio correctamente el cursor: {cls._cursor}")
@@ -41,5 +41,7 @@ class Conexion:
                 sys.exit()
         else:
             return cls._cursor
-    def cerrar(cls):
-        sys.exit()
+
+if __name__ == "__main__":
+    Conexion.obtenerconexion()
+    Conexion.obtenercursor()
