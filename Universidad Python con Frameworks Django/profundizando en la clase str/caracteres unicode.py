@@ -1,0 +1,8 @@
+#Caracteres unicode (\u)
+print("Hola\u0041Mundo")
+print("Notacio simple","\u0041")
+print("Notacio extendida","\U00000041")
+print("Notacio hexadecimal","\x41")
+print("Corazon","\u2665")
+print("Cara sonriendte","\U0001f600")
+print("Serpiente","\U0001f40D")
